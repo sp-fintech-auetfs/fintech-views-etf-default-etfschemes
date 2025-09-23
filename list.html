@@ -1,0 +1,48 @@
+{% if compare is defined %}
+    {% set cancelCloseUrl = 'etf/schemes' %}
+    {% if timeline %}
+        {% set cancelCloseUrl = 'etf/schemes/q/timeline/' ~ timeline %}
+    {% endif %}
+    {{adminltetags.useTag('content',
+        [
+            'component'                     : component,
+            'componentName'                 : componentName,
+            'componentId'                   : componentId,
+            'parentComponentId'             : parent,
+            'sectionId'                     : 'main',
+            'contentType'                   : 'sectionWithForm',
+            'cardHeader'                    : true,
+            'cardFooter'                    : true,
+            'cardShowTools'                 : ['maximize'],
+            'cardType'                      : 'info',
+            'cardIcon'                      : 'equals',
+            'cardTitle'                     : 'Compare Schemes',
+            'cardAdditionalClass'           : 'rounded-0',
+            'cardBodyInclude'               : 'schemes/compare',
+            'formButtons'                   :
+            [
+                'cancelActionUrl'               : cancelCloseUrl,
+                'closeActionUrl'                : cancelCloseUrl
+            ]
+        ]
+    )}}
+{% else %}
+    {{adminltetags.useTag('content',
+        [
+            'component'                     : component,
+            'componentName'                 : componentName,
+            'componentId'                   : componentId,
+            'parentComponentId'             : parent,
+            'sectionId'                     : 'main',
+            'contentType'                   : 'section',
+            'cardHeader'                    : true,
+            'cardFooter'                    : false,
+            'cardShowTools'                 : ['maximize'],
+            'cardType'                      : 'primary',
+            'cardIcon'                      : 'circle-dot',
+            'cardTitle'                     : 'Schemes',
+            'cardAdditionalClass'           : 'rounded-0',
+            'cardBodyInclude'               : 'schemes/explorer'
+        ]
+    )}}
+{% endif %}

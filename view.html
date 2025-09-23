@@ -1,0 +1,43 @@
+{% if scheme['id'] is defined %}
+    {% set schemeId = scheme['id'] %}
+    {% set title = 'Scheme : ' ~ escaper.html(scheme['name']) ~ ' (' ~ scheme['symbol'] ~ ')' %}
+    {% set bodyInclude = 'schemes/form' %}
+    {% set cardType = 'primary' %}
+    {% set cardIcon = 'circle-dot' %}
+    {% if custom is defined and custom == true %}
+        {% set title = 'Scheme Custom Navs (' ~ escaper.html(scheme['name']) ~ ')' %}
+        {% set bodyInclude = 'schemes/custom' %}
+        {% set cardType = 'info' %}
+        {% set cardIcon = 'money-bill-trend-up' %}
+    {% endif %}
+    {% set cancelCloseUrl = 'etf/schemes' %}
+    {% if timeline %}
+        {% set cancelCloseUrl = 'etf/schemes/q/timeline/' ~ timeline %}
+    {% endif %}
+    {{adminltetags.useTag('content',
+        [
+            'component'                     : component,
+            'componentName'                 : componentName,
+            'componentId'                   : componentId,
+            'parentComponentId'             : parent,
+            'sectionId'                     : 'main',
+            'contentType'                   : 'sectionWithForm',
+            'cardHeader'                    : true,
+            'cardFooter'                    : true,
+            'cardType'                      : cardType,
+            'cardIcon'                      : cardIcon,
+            'cardTitle'                     : title,
+            'cardAdditionalClass'           : 'rounded-0',
+            'cardBodyInclude'               : bodyInclude,
+            'cardShowTools'                 : ['packageSettings'],
+            'formButtons'                   :
+            [
+                'updateButtonId'                : schemeId,
+                'cancelActionUrl'               : cancelCloseUrl,
+                'closeActionUrl'                : cancelCloseUrl
+            ]
+        ]
+    )}}
+{% else %}
+    ERROR: NO SCHEME SELECTED
+{% endif %}

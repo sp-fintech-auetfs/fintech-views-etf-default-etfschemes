@@ -1,0 +1,1185 @@
+<!-- htmlhint tag-pair:false --><!-- htmlmin:ignore -->
+{% if compare is defined and compare == true %}
+    <div class="row">
+        <div class="col">
+            {{adminltetags.useTag('buttons',
+                [
+                    'component'                         : component,
+                    'componentName'                     : componentName,
+                    'componentId'                       : componentId,
+                    'sectionId'                         : sectionId,
+                    'buttonType'                        : 'ButtonGroup',
+                    'buttonId'                          : 'timeline',
+                    'groupButtonType'                   : 'radio',
+                    'groupRadioButtonChecked'           : 'week',
+                    'buttons'                           :
+                        [
+                            'week' : [
+                                'title'                   : '1W',
+                                'type'                    : 'primary',
+                                'value'                   : 'week',
+                                'disabled'                : true
+                            ],
+                            'month' : [
+                                'title'                   : '1M',
+                                'type'                    : 'primary',
+                                'value'                   : 'month'
+                            ],
+                            'threeMonth' : [
+                                'title'                   : '3M',
+                                'type'                    : 'primary',
+                                'value'                   : 'threeMonth'
+                            ],
+                            'sixMonth' : [
+                                'title'                   : '6M',
+                                'type'                    : 'primary',
+                                'value'                   : 'sixMonth'
+                            ],
+                            'year' : [
+                                'title'                   : '1Y',
+                                'type'                    : 'primary',
+                                'value'                   : 'year'
+                            ],
+                            'threeYear' : [
+                                'title'                   : '3Y',
+                                'type'                    : 'primary',
+                                'value'                   : 'threeYear'
+                            ],
+                            'fiveYear' : [
+                                'title'                   : '5Y',
+                                'type'                    : 'primary',
+                                'value'                   : 'fiveYear'
+                            ],
+                            'tenYear' : [
+                                'title'                   : '10Y',
+                                'type'                    : 'primary',
+                                'value'                   : 'tenYear'
+                            ],
+                            'fifteenYear' : [
+                                'title'                   : '15Y',
+                                'type'                    : 'primary',
+                                'value'                   : 'fifteenYear'
+                            ],
+                            'twentyYear' : [
+                                'title'                   : '20Y',
+                                'type'                    : 'primary',
+                                'value'                   : 'twentyYear'
+                            ],
+                            'twentyFiveYear' : [
+                                'title'                   : '25Y',
+                                'type'                    : 'primary',
+                                'value'                   : 'twentyFiveYear'
+                            ],
+                            'thirtyYear' : [
+                                'title'                   : '30Y',
+                                'type'                    : 'primary',
+                                'value'                   : 'thirtyYear'
+                            ],
+                            'all' : [
+                                'title'                   : 'ALL',
+                                'type'                    : 'primary',
+                                'value'                   : 'all'
+                            ],
+                            'range' : [
+                                'title'                   : 'RANGE',
+                                'type'                    : 'primary',
+                                'value'                   : 'range'
+                            ]
+                        ]
+                ]
+            )}}
+        </div>
+        <div class="col">
+            {{adminltetags.useTag('fields',
+                [
+                    'component'                      : component,
+                    'componentName'                  : componentName,
+                    'componentId'                    : componentId,
+                    'sectionId'                      : sectionId,
+                    'fieldId'                        : 'date_range',
+                    'fieldLabel'                     : false,
+                    'fieldPlaceholder'               : 'Date Range',
+                    'fieldType'                      : 'flatpickr',
+                    'fieldFlatpickrClearButton'      : true,
+                    'fieldHelp'                      : true,
+                    'fieldHelpTooltipContent'        : 'Investment Date',
+                    'fieldRequired'                  : true,
+                    'fieldHidden'                    : true,
+                    'fieldBazScan'                   : true,
+                    'fieldBazPostOnCreate'           : false,
+                    'fieldBazPostOnUpdate'           : true,
+                    'fieldValue'                     : ''
+                ]
+            )}}
+        </div>
+    </div>
+    <br>
+    {% set navsChunks = json_encode([], 16) %}
+    {% set scheme = json_encode([], 16) %}
+{% else %}
+    {% set timelineButtons = [] %}
+    {% if schemeNavChunks is defined %}
+        {% if schemeNavChunks['week'] is defined and schemeNavChunks['week']|length > 0 %}
+            {% set timelineButtons = array_merge(timelineButtons,
+                [
+                    'week' : [
+                        'title'                   : '1W',
+                        'type'                    : 'primary',
+                        'value'                   : 'week',
+                        'disabled'                : true
+                    ]
+                ]
+            ) %}
+        {% endif %}
+        {% if schemeNavChunks['month'] is defined and schemeNavChunks['month']|length > 0 %}
+            {% set timelineButtons = array_merge(timelineButtons,
+                [
+                    'month' : [
+                        'title'                   : '1M',
+                        'type'                    : 'primary',
+                        'value'                   : 'month'
+                    ]
+                ]
+            ) %}
+        {% endif %}
+        {% if schemeNavChunks['threeMonth'] is defined and schemeNavChunks['threeMonth']|length > 0 %}
+            {% set timelineButtons = array_merge(timelineButtons,
+                [
+                    'threeMonth' : [
+                        'title'                   : '3M',
+                        'type'                    : 'primary',
+                        'value'                   : 'threeMonth'
+                    ]
+                ]
+            ) %}
+        {% endif %}
+        {% if schemeNavChunks['sixMonth'] is defined and schemeNavChunks['sixMonth']|length > 0 %}
+            {% set timelineButtons = array_merge(timelineButtons,
+                [
+                    'sixMonth' : [
+                        'title'                   : '6M',
+                        'type'                    : 'primary',
+                        'value'                   : 'sixMonth'
+                    ]
+                ]
+            ) %}
+        {% endif %}
+        {% if schemeNavChunks['year'] is defined and schemeNavChunks['year']|length > 0 %}
+            {% set timelineButtons = array_merge(timelineButtons,
+                [
+                    'year' : [
+                        'title'                   : '1Y',
+                        'type'                    : 'primary',
+                        'value'                   : 'year'
+                    ]
+                ]
+            ) %}
+        {% endif %}
+        {% if schemeNavChunks['threeYear'] is defined and schemeNavChunks['threeYear'] == true %}
+            {% set timelineButtons = array_merge(timelineButtons,
+                [
+                    'threeYear' : [
+                        'title'                   : '3Y',
+                        'type'                    : 'primary',
+                        'value'                   : 'threeYear'
+                    ]
+                ]
+            ) %}
+        {% endif %}
+        {% if schemeNavChunks['fiveYear'] is defined and schemeNavChunks['fiveYear'] == true %}
+            {% set timelineButtons = array_merge(timelineButtons,
+                [
+                    'fiveYear' : [
+                        'title'                   : '5Y',
+                        'type'                    : 'primary',
+                        'value'                   : 'fiveYear'
+                    ]
+                ]
+            ) %}
+        {% endif %}
+        {% if schemeNavChunks['tenYear'] is defined and schemeNavChunks['tenYear'] == true %}
+            {% set timelineButtons = array_merge(timelineButtons,
+                [
+                    'tenYear' : [
+                        'title'                   : '10Y',
+                        'type'                    : 'primary',
+                        'value'                   : 'tenYear'
+                    ]
+                ]
+            ) %}
+        {% endif %}
+        {% if schemeNavChunks['fifteenYear'] is defined and schemeNavChunks['fifteenYear'] == true %}
+            {% set timelineButtons = array_merge(timelineButtons,
+                [
+                    'fifteenYear' : [
+                        'title'                   : '15Y',
+                        'type'                    : 'primary',
+                        'value'                   : 'fifteenYear'
+                    ]
+                ]
+            ) %}
+        {% endif %}
+        {% if schemeNavChunks['twentyYear'] is defined and schemeNavChunks['twentyYear'] == true %}
+            {% set timelineButtons = array_merge(timelineButtons,
+                [
+                    'twentyYear' : [
+                        'title'                   : '20Y',
+                        'type'                    : 'primary',
+                        'value'                   : 'twentyYear'
+                    ]
+                ]
+            ) %}
+        {% endif %}
+        {% if schemeNavChunks['twentyFiveYear'] is defined and schemeNavChunks['twentyFiveYear'] == true %}
+            {% set timelineButtons = array_merge(timelineButtons,
+                [
+                    'twentyFiveYear' : [
+                        'title'                   : '25Y',
+                        'type'                    : 'primary',
+                        'value'                   : 'twentyFiveYear'
+                    ]
+                ]
+            ) %}
+        {% endif %}
+        {% if schemeNavChunks['thirtyYear'] is defined and schemeNavChunks['thirtyYear'] == true %}
+            {% set timelineButtons = array_merge(timelineButtons,
+                [
+                    'thirtyYear' : [
+                        'title'                   : '30Y',
+                        'type'                    : 'primary',
+                        'value'                   : 'thirtyYear'
+                    ]
+                ]
+            ) %}
+        {% endif %}
+        {% set timelineButtons = array_merge(timelineButtons,
+            [
+                'all' : [
+                    'title'                   : 'ALL',
+                    'type'                    : 'primary',
+                    'value'                   : 'all'
+                ],
+                'range' : [
+                    'title'                   : 'RANGE',
+                    'type'                    : 'primary',
+                    'value'                   : 'range'
+                ]
+            ]
+        ) %}
+    {% endif %}
+    <div class="row">
+        <div id="timeline-buttons" class="col" hidden>
+            {{adminltetags.useTag('buttons',
+                [
+                    'component'                         : component,
+                    'componentName'                     : componentName,
+                    'componentId'                       : componentId,
+                    'sectionId'                         : sectionId,
+                    'buttonType'                        : 'ButtonGroup',
+                    'buttonId'                          : 'timeline',
+                    'groupButtonType'                   : 'radio',
+                    'groupRadioButtonChecked'           : 'week',
+                    'buttons'                           : timelineButtons
+                ]
+            )}}
+        </div>
+        <div class="col">
+            {{adminltetags.useTag('fields',
+                [
+                    'component'                      : component,
+                    'componentName'                  : componentName,
+                    'componentId'                    : componentId,
+                    'sectionId'                      : sectionId,
+                    'fieldId'                        : 'date_range',
+                    'fieldLabel'                     : false,
+                    'fieldPlaceholder'               : 'Date Range',
+                    'fieldType'                      : 'flatpickr',
+                    'fieldFlatpickrClearButton'      : true,
+                    'fieldHelp'                      : true,
+                    'fieldHelpTooltipContent'        : 'Investment Date',
+                    'fieldRequired'                  : true,
+                    'fieldHidden'                    : true,
+                    'fieldBazScan'                   : true,
+                    'fieldBazPostOnCreate'           : false,
+                    'fieldBazPostOnUpdate'           : true,
+                    'fieldValue'                     : ''
+                ]
+            )}}
+        </div>
+        <div id="datatype-buttons" class="col text-center" hidden>
+            {{adminltetags.useTag('buttons',
+                [
+                    'component'                         : component,
+                    'componentName'                     : componentName,
+                    'componentId'                       : componentId,
+                    'sectionId'                         : sectionId,
+                    'buttonType'                        : 'ButtonGroup',
+                    'buttonId'                          : 'datatype',
+                    'groupButtonType'                   : 'radio',
+                    'groupRadioButtonChecked'           : 'nav',
+                    'buttons'                           :
+                    [
+                        'nav' : [
+                            'title'                   : 'NAVS',
+                            'type'                    : 'primary',
+                            'value'                   : 'nav'
+                        ],
+                        'diff' : [
+                            'title'                   : 'DIFF',
+                            'type'                    : 'primary',
+                            'value'                   : 'diff'
+                        ],
+                        'diff_percent' : [
+                            'title'                   : 'PERCENT',
+                            'type'                    : 'primary',
+                            'value'                   : 'diff_percent'
+                        ]
+                    ]
+                ]
+            )}}
+        </div>
+        {% if custom is not defined %}
+            <div class="col">
+                {{adminltetags.useTag('buttons',
+                    [
+                        'componentId'           : componentId,
+                        'sectionId'             : sectionId,
+                        'buttonType'            : 'button',
+                        'buttons'               :
+                            [
+                                'import' : [
+                                    'title'                   : 'Import Navs',
+                                    'position'                : 'right',
+                                    'size'                    : 'sm',
+                                    'icon'                    : 'cog fa-spin',
+                                    'iconHidden'              : true,
+                                    'url'                     : links.url('etf/schemes/q/id/' ~ scheme['id'])
+                                ]
+                            ]
+                    ]
+                )}}
+            </div>
+        {% endif %}
+    </div>
+    {% set navsChunks = escaper.js(json_encode(schemeNavChunks, 16)) %}
+    {% set scheme = escaper.js(json_encode(scheme, 16)) %}
+    <div class="row">
+        <div class="col">
+            {{adminltetags.useTag('buttons',
+                [
+                    'component'                      : component,
+                    'componentName'                  : componentName,
+                    'componentId'                    : componentId,
+                    'sectionId'                      : sectionId,
+                    'buttonType'                    : 'button',
+                    'buttons'                       :
+                        [
+                            'navs-link'    : [
+                                'title'                   : 'link',
+                                'size'                    : 'xs',
+                                'disabled'                : true,
+                                'hidden'                  : true,
+                                'url'                     : '#'
+                            ]
+                        ]
+                ]
+            )}}
+        </div>
+    </div>
+    <br>
+    <div class="row text-center" id="timeline-import" hidden>
+        <div class="col">
+            <i class="fa fa-cog fa-spin"></i> Importing all available NAV data...
+        </div>
+    </div>
+    {% set categories = json_encode([], 16) %}
+{% endif %}
+<div class="row" id="timeline-chart" hidden>
+    <div class="col">
+        <div id="navsChart"></div>
+    </div>
+</div>
+<div class="row text-center" id="timeline-loader">
+    <div class="col">
+        <i class="fa fa-cog fa-spin"></i> Loading navs chart and table...
+    </div>
+</div>
+<hr>
+{% set trendsHeaders = [] %}
+{% set trendsHtml =
+    '<div class="row">' ~
+    '    <div class="col">' ~
+    '        <table id="' ~ componentId ~ '-' ~ sectionId ~ '-trends-table" class="table table-sm table-hover responsive nowrap table-bordered mb-0" width="100%" cellspacing="0">' ~
+    '            <thead>' ~
+    '                <tr>' %}
+{% if compare is defined and compare == true %}
+    {% set trendsHtml = trendsHtml ~
+    '                    <th id="trend-days" class="text-uppercase text-center"></th>' %}
+    {% set trendsHeaders = array_merge(trendsHeaders, ['Scheme']) %}
+{% endif %}
+    {% set trendsHtml = trendsHtml ~
+    '                    <th id="trend-days" class="text-uppercase text-center" colspan="3">Trend Days</th>' ~
+    '                    <th class="text-uppercase text-center" colspan="14">Trend distribution (# of times)</th>' ~
+    '                </tr>' ~
+    '                <tr>'
+%}
+{% set trendsHeaders = array_merge(trendsHeaders,
+    ['up days',
+    'down days',
+    'neutral days',
+    '> -5%',
+    '-5-4%',
+    '-4-3%',
+    '-3-2%',
+    '-2-1%',
+    '-1-0%',
+    '0%',
+    '0-1%',
+    '1-2%',
+    '2-3%',
+    '3-4%',
+    '4-5%',
+    '> 5%'])
+%}
+{% for trend in trendsHeaders %}
+    {% set trendsHtml = trendsHtml ~ '<th class="text-uppercase">' ~ trend ~ '</th>' %}
+{% endfor %}
+{% set trendsHtml = trendsHtml ~
+    '                </tr>' ~
+    '            </thead>' ~
+    '            <tbody>' ~
+    '            </tbody>' ~
+    '        </table>' ~
+    '    </div>' ~
+    '</div>'
+%}
+<div class="row" id="trends-div">
+    <div class="col">
+        {{adminltetags.useTag('fields',
+            [
+                'component'                      : component,
+                'componentName'                  : componentName,
+                'componentId'                    : componentId,
+                'sectionId'                      : sectionId,
+                'fieldId'                        : 'trends',
+                'fieldLabel'                     : 'Trend Statistics & Distribution',
+                'fieldType'                      : 'html',
+                'fieldAdditionalClass'           : 'mb-0',
+                'fieldHelp'                      : true,
+                'fieldHelpTooltipContent'        : 'Trend Statistics & Distribution',
+                'fieldRequired'                  : false,
+                'fieldBazScan'                   : false,
+                'fieldHtmlContent'               : trendsHtml
+            ]
+        )}}
+    </div>
+</div>
+<script>
+/*global paginatedPNotify BazProgress BazContentFields BazHelpers BazContentLoader Pace BazCore dataCollection echarts dayjs_plugin_minMax dayjs */
+var dataCollectionComponent, dataCollectionSection, dataCollectionSectionForm;
+if (!window['dataCollection']) {
+    window['dataCollection'] = { };
+}
+if (!window['dataCollection']['{{componentId}}']) {
+    dataCollectionComponent =
+        window['dataCollection']['{{componentId}}'] = { };
+} else {
+    dataCollectionComponent =
+        window['dataCollection']['{{componentId}}'];
+}
+if (!dataCollectionComponent['{{componentId}}-{{sectionId}}']) {
+    dataCollectionSection =
+        dataCollectionComponent['{{componentId}}-{{sectionId}}'] = { };
+} else {
+    dataCollectionSection =
+        dataCollectionComponent['{{componentId}}-{{sectionId}}'];
+}
+if (!dataCollectionSection['{{componentId}}-{{sectionId}}-form']) {
+    dataCollectionSectionForm =
+        dataCollectionSection['{{componentId}}-{{sectionId}}-form'] = { };
+} else {
+    dataCollectionSectionForm =
+        dataCollectionSection['{{componentId}}-{{sectionId}}-form'];
+}
+
+if (!dataCollectionSectionForm['vars']) {
+    dataCollectionSectionForm['vars'] = { };
+}
+if (!dataCollectionSectionForm['funcs']) {
+    dataCollectionSectionForm['funcs'] = { };
+}
+
+dataCollectionSectionForm['vars']['scheme'] = { };
+dataCollectionSectionForm['vars']['navs_chunks'] = { };
+dataCollectionSectionForm['vars']['trend'] = { };
+dataCollectionSectionForm['vars']['compare'] = '{{compare}}';
+dataCollectionSectionForm['vars']['schemetimeline'] = '{{timeline}}';
+
+if (dataCollectionSectionForm['vars']['compare'] == true) {
+    dataCollectionSectionForm['vars']['dataType'] = 'diff_percent';
+    dataCollectionSectionForm['vars']['dataTypeName'] = 'PERCENT';
+} else {
+    dataCollectionSectionForm['vars']['dataType'] = 'nav';
+    dataCollectionSectionForm['vars']['dataTypeName'] = 'NAV';
+    dataCollectionSectionForm['vars']['scheme'] = JSON.parse('{{scheme}}');
+    dataCollectionSectionForm['vars']['navs_chunks'][dataCollectionSectionForm['vars']['scheme']['id']] = JSON.parse('{{navsChunks}}');
+    dataCollectionSectionForm['vars']['trend'][dataCollectionSectionForm['vars']['scheme']['id']] = dataCollectionSectionForm['vars']['scheme']['trend'];
+    dataCollectionSectionForm['vars']['custom'] = dataCollectionSectionForm['vars']['scheme']['custom'];
+    dataCollectionSectionForm['vars']['schemeNavs'] = { };
+    dataCollectionSectionForm['vars']['schemeNavsPercent'] = [];
+    dataCollectionSectionForm['vars']['custom_index'] = [];
+    dataCollectionSectionForm['vars']['pattern_id'] = 0;
+    dataCollectionSectionForm['vars']['customNavStartDate'] = '{{customNavStartDate}}'
+    dataCollectionSectionForm['vars']['customNavEndDate'] = '{{customNavEndDate}}'
+}
+
+dataCollectionSectionForm['vars']['actions'] = { };
+dataCollectionSectionForm['vars']['navsChart'] = { };
+
+dataCollectionSectionForm['vars']['timeline'] = 'week';
+
+dataCollectionSectionForm['funcs']['initNavChart'] = function(compare = false) {
+    if (Object.keys(dataCollectionSectionForm['vars']['navsChart']).length === 0) {
+        dataCollectionSectionForm['vars']['navsChart'] = echarts.init(document.getElementById('navsChart'), 'macarons');
+    }
+
+    if (compare === true) {
+        dataCollectionSectionForm['vars']['navsChartOptions'] = {
+            title: {
+                text: 'Growth comparison (%)',
+                left: 'left'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                  type: 'cross'
+                }
+            },
+            legend: {
+                top: 50,
+                center: 'center'
+            },
+            grid: {
+                top: 80,
+            },
+            xAxis: {
+                name: 'PERIOD (WEEK)',
+                nameLocation: 'middle',
+                nameTextStyle: {
+                    lineHeight: 50
+                },
+                data: []
+            },
+            yAxis: {
+                name: 'PERCENT',
+                nameRotate: 90,
+                nameLocation: "middle",
+                nameTextStyle: {
+                    lineHeight: 60,
+                }
+            },
+            dataZoom: [
+                {
+                    type: 'inside'
+                }
+            ],
+            series: []
+        }
+    } else {
+        dataCollectionSectionForm['vars']['navsChartOptions'] = {
+            title: {
+                text: 'NAVs for ' + dataCollectionSectionForm['vars']['scheme']['name'],
+                left: 'left'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                  type: 'cross'
+                }
+            },
+            legend: {
+                top: 50,
+                center: 'center'
+            },
+            grid: {
+                top: 80,
+            },
+            xAxis: {
+                name: 'PERIOD (WEEK)',
+                nameLocation: 'middle',
+                nameTextStyle: {
+                    lineHeight: 50
+                },
+                data: []
+            },
+            yAxis: {
+                name: 'NAVS',
+                nameRotate: 90,
+                nameLocation: "middle",
+                nameTextStyle: {
+                    lineHeight: 60,
+                }
+            },
+            dataZoom: [
+                {
+                    type: 'inside'
+                }
+            ],
+            series: [
+                {
+                    name: 'NAV',
+                    type: 'line',
+                    data: [],
+                }
+            ]
+        }
+    }
+
+    dataCollectionSectionForm['vars']['navsChart'].off('rendered');
+    dataCollectionSectionForm['vars']['navsChart'].on('rendered', function() {
+        if (dataCollectionSectionForm['vars'] &&
+            dataCollectionSectionForm['vars']['navsChart']
+        ) {
+            if ($('#timeline-chart').width() > 0) {
+                dataCollectionSectionForm['vars']['navsChart'].resize({
+                    width : $('#timeline-chart').width(),
+                    height: 400
+                });
+            }
+        }
+
+        $('#timeline-buttons').attr('hidden', false);
+        $('#datatype-buttons').attr('hidden', false);
+        $('#timeline-loader').attr('hidden', true);
+        $('#import-loader').attr('hidden', true);
+        $('#timeline-chart').attr('hidden', false);
+        $('#navs-table').attr('hidden', false);
+    });
+
+    if (Object.keys(dataCollectionSectionForm['vars']['navs_chunks']).length > 0) {
+        dataCollectionSectionForm['vars']['navsChartOptions']['series'] = [];
+        dataCollectionSectionForm['vars']['timeline'] = 'week';
+
+        $.each(['week', 'month', 'threeMonth', 'sixMonth', 'year', 'threeYear', 'fiveYear', 'tenYear', 'fifteenYear', 'twentyYear', 'twentyFiveYear', 'thirtyYear', 'all', 'range'],
+               function(index, time) {
+            if (!dataCollectionSectionForm['vars']['actions'][time]) {
+                dataCollectionSectionForm['vars']['actions'][time] = function() {
+                    dataCollectionSectionForm['vars']['navsChart'].setOption({series: []}, {replaceMerge: ['series']});
+
+                    if (time === 'range') {
+                        dataCollectionSectionForm['vars']['navsChartOptions']['xAxis']['name'] = 'PERIOD RANGE (' + dataCollectionSectionForm['vars']['range'] + ')';
+                    } else {
+                        dataCollectionSectionForm['vars']['navsChartOptions']['xAxis']['name'] = 'PERIOD (' + time.toUpperCase() + ')';
+                    }
+                    dataCollectionSectionForm['vars']['navsChartOptions']['yAxis']['name'] = dataCollectionSectionForm['vars']['dataTypeName'];
+                    dataCollectionSectionForm['vars']['navsChartOptions']['xAxis']['data'] = [];
+
+                    var counter = 0;
+                    $.each(dataCollectionSectionForm['vars']['navs_chunks'], function(schemeId, chunks) {
+                        dataCollectionSectionForm['vars'][time + 'Data'] = [];
+                        dataCollectionSectionForm['vars']['navsChartOptions']['series'][counter] = { };
+                        dataCollectionSectionForm['vars']['navsChartOptions']['series'][counter]['type'] = 'line';
+
+                        for (var date in chunks[time]) {
+                            dataCollectionSectionForm['vars'][time + 'NavData'] = { };
+                            dataCollectionSectionForm['vars'][time + 'NavData']['date'] = date;
+
+                            if (time === 'all') {
+                                if (dataCollectionSectionForm['vars']['dataType'] === 'diff') {
+                                    dataCollectionSectionForm['vars'][time + 'NavData'][dataCollectionSectionForm['vars']['dataType']] =
+                                        chunks[time][date]['diff_since_inception'];
+                                } else if (dataCollectionSectionForm['vars']['dataType'] === 'diff_percent') {
+                                    dataCollectionSectionForm['vars'][time + 'NavData'][dataCollectionSectionForm['vars']['dataType']] =
+                                        chunks[time][date]['diff_percent_since_inception'];
+                                } else {
+                                    dataCollectionSectionForm['vars'][time + 'NavData'][dataCollectionSectionForm['vars']['dataType']] =
+                                        chunks[time][date][dataCollectionSectionForm['vars']['dataType']];
+                                }
+                            } else {
+                                dataCollectionSectionForm['vars'][time + 'NavData'][dataCollectionSectionForm['vars']['dataType']] =
+                                    chunks[time][date][dataCollectionSectionForm['vars']['dataType']];
+                            }
+
+                            dataCollectionSectionForm['vars'][time + 'Data'].push(dataCollectionSectionForm['vars'][time + 'NavData']);
+                        }
+
+                        if (compare) {
+                            dataCollectionSectionForm['vars']['navsChartOptions']['series'][counter]['name'] = dataCollectionSectionForm['vars']['compareSchemes'][schemeId]['name'];
+                        } else {
+                            dataCollectionSectionForm['vars']['navsChartOptions']['series'][counter]['name'] = dataCollectionSectionForm['vars']['dataTypeName'];
+                        }
+
+                        dataCollectionSectionForm['vars']['navsChartOptions']['series'][counter]['data'] = dataCollectionSectionForm['vars'][time + 'Data'].map(row => row[dataCollectionSectionForm['vars']['dataType']]);
+                        if (dataCollectionSectionForm['vars']['navsChartOptions']['xAxis']['data'].length === 0) {
+                            dataCollectionSectionForm['vars']['navsChartOptions']['xAxis']['data'] = dataCollectionSectionForm['vars'][time + 'Data'].map(row => row.date);
+                        }
+
+                        if (compare === true) {
+                            dataCollectionSectionForm['vars']['scheme'] = dataCollectionSectionForm['vars']['compareSchemes'][schemeId];
+                        }
+
+                        counter++;
+                    });
+
+                    dataCollectionSectionForm['vars']['navsChart'].setOption(dataCollectionSectionForm['vars']['navsChartOptions']);
+
+                    dataCollectionSectionForm['funcs']['popluateTrendTable'](time);
+                }
+            }
+        });
+
+        dataCollectionSectionForm['vars']['actions']['week']();
+
+        //Activate Timeline buttons
+        var timelineChecked = $("input[type='radio'][name='timeline']:checked");
+        var timelineTimeline = $(timelineChecked).data('value');
+        var timelineLabels = $(timelineChecked).parents('.btn-group').children('label');
+        $(timelineLabels).each(function(index, timelineLabel) {
+            $(timelineLabel).removeClass('focus active disabled');
+            $(timelineLabel).css('cursor', 'pointer');
+
+            if ($(timelineLabel).children('input')[0].id === timelineTimeline) {
+                $(timelineLabel).addClass('focus active disabled');
+                $(timelineLabel).css('cursor', 'default');
+            }
+        });
+
+        $("input[type='radio'][name='timeline']:checked").parents('.btn-group').children('label').children('input').off();
+        $("input[type='radio'][name='timeline']:checked").parents('.btn-group').children('label').children('input').click(function() {
+            $('#{{componentId}}-{{sectionId}}-date_range').parents('.form-group').addClass('d-none');
+            dataCollectionSectionForm['vars']['rangeActive'] = false;
+            dataCollectionSectionForm['vars']['range'] = null;
+            dataCollectionSection['{{componentId}}-{{sectionId}}-date_range']['flatpickr'].clear();
+
+            timelineChecked = $("input[type='radio'][name='timeline']:checked");
+            timelineTimeline = $(timelineChecked).data('value');
+            timelineLabels = $(timelineChecked).parents('.btn-group').children('label');
+
+            $(timelineLabels).each(function(index, timelineLabel) {
+                $(timelineLabel).removeClass('focus active disabled');
+                $(timelineLabel).css('cursor', 'pointer');
+
+                if ($(timelineLabel).children('input')[0].id === timelineTimeline) {
+                    $(timelineLabel).addClass('focus active disabled');
+                    $(timelineLabel).css('cursor', 'default');
+                }
+            });
+
+            if (timelineTimeline === 'range') {
+                $('#{{componentId}}-{{sectionId}}-date_range').parents('.form-group').removeClass('d-none');
+
+                return;
+            }
+
+            $.each(dataCollectionSectionForm['vars']['navs_chunks'], function(schemeId, chunks) {
+                if (timelineTimeline === 'week') {
+                    dataCollectionSectionForm['vars']['actions'][timelineTimeline]();
+                } else if (timelineTimeline === 'month') {
+                    if (typeof dataCollectionSectionForm['vars']['navs_chunks'][schemeId]['month'] === 'boolean') {
+                        dataCollectionSectionForm['vars']['scheme']['id'] = schemeId;
+                        dataCollectionSectionForm['funcs']['getSchemeNavChunks'](timelineTimeline);
+                    } else {
+                        dataCollectionSectionForm['vars']['actions'][timelineTimeline]();
+                    }
+                } else if (timelineTimeline === 'threeMonth') {
+                    if (typeof dataCollectionSectionForm['vars']['navs_chunks'][schemeId]['threeMonth'] === 'boolean') {
+                        dataCollectionSectionForm['vars']['scheme']['id'] = schemeId;
+                        dataCollectionSectionForm['funcs']['getSchemeNavChunks'](timelineTimeline);
+                    } else {
+                        dataCollectionSectionForm['vars']['actions'][timelineTimeline]();
+                    }
+                } else if (timelineTimeline === 'sixMonth') {
+                    if (typeof dataCollectionSectionForm['vars']['navs_chunks'][schemeId]['sixMonth'] === 'boolean') {
+                        dataCollectionSectionForm['vars']['scheme']['id'] = schemeId;
+                        dataCollectionSectionForm['funcs']['getSchemeNavChunks'](timelineTimeline);
+                    } else {
+                        dataCollectionSectionForm['vars']['actions'][timelineTimeline]();
+                    }
+                } else if (timelineTimeline === 'year') {
+                    if (typeof dataCollectionSectionForm['vars']['navs_chunks'][schemeId]['year'] === 'boolean') {
+                        dataCollectionSectionForm['vars']['scheme']['id'] = schemeId;
+                        dataCollectionSectionForm['funcs']['getSchemeNavChunks'](timelineTimeline);
+                    } else {
+                        dataCollectionSectionForm['vars']['actions'][timelineTimeline]();
+                    }
+                } else if (timelineTimeline === 'threeYear') {
+                    if (typeof dataCollectionSectionForm['vars']['navs_chunks'][schemeId]['threeYear'] === 'boolean') {
+                        dataCollectionSectionForm['vars']['scheme']['id'] = schemeId;
+                        dataCollectionSectionForm['funcs']['getSchemeNavChunks'](timelineTimeline);
+                    } else {
+                        dataCollectionSectionForm['vars']['actions'][timelineTimeline]();
+                    }
+                } else if (timelineTimeline === 'fiveYear') {
+                    if (typeof dataCollectionSectionForm['vars']['navs_chunks'][schemeId]['fiveYear'] === 'boolean') {
+                        dataCollectionSectionForm['vars']['scheme']['id'] = schemeId;
+                        dataCollectionSectionForm['funcs']['getSchemeNavChunks'](timelineTimeline);
+                    } else {
+                        dataCollectionSectionForm['vars']['actions'][timelineTimeline]();
+                    }
+                } else if (timelineTimeline === 'tenYear') {
+                    if (typeof dataCollectionSectionForm['vars']['navs_chunks'][schemeId]['tenYear'] === 'boolean') {
+                        dataCollectionSectionForm['vars']['scheme']['id'] = schemeId;
+                        dataCollectionSectionForm['funcs']['getSchemeNavChunks'](timelineTimeline);
+                    } else {
+                        dataCollectionSectionForm['vars']['actions'][timelineTimeline]();
+                    }
+                } else if (timelineTimeline === 'fifteenYear') {
+                    if (typeof dataCollectionSectionForm['vars']['navs_chunks'][schemeId]['fifteenYear'] === 'boolean') {
+                        dataCollectionSectionForm['vars']['scheme']['id'] = schemeId;
+                        dataCollectionSectionForm['funcs']['getSchemeNavChunks'](timelineTimeline);
+                    } else {
+                        dataCollectionSectionForm['vars']['actions'][timelineTimeline]();
+                    }
+                } else if (timelineTimeline === 'twentyYear') {
+                    if (typeof dataCollectionSectionForm['vars']['navs_chunks'][schemeId]['twentyYear'] === 'boolean') {
+                        dataCollectionSectionForm['vars']['scheme']['id'] = schemeId;
+                        dataCollectionSectionForm['funcs']['getSchemeNavChunks'](timelineTimeline);
+                    } else {
+                        dataCollectionSectionForm['vars']['actions'][timelineTimeline]();
+                    }
+                } else if (timelineTimeline === 'twentyFiveYear') {
+                    if (typeof dataCollectionSectionForm['vars']['navs_chunks'][schemeId]['twentyFiveYear'] === 'boolean') {
+                        dataCollectionSectionForm['vars']['scheme']['id'] = schemeId;
+                        dataCollectionSectionForm['funcs']['getSchemeNavChunks'](timelineTimeline);
+                    } else {
+                        dataCollectionSectionForm['vars']['actions'][timelineTimeline]();
+                    }
+                } else if (timelineTimeline === 'thirtyYear') {
+                    if (typeof dataCollectionSectionForm['vars']['navs_chunks'][schemeId]['thirtyYear'] === 'boolean') {
+                        dataCollectionSectionForm['vars']['scheme']['id'] = schemeId;
+                        dataCollectionSectionForm['funcs']['getSchemeNavChunks'](timelineTimeline);
+                    } else {
+                        dataCollectionSectionForm['vars']['actions'][timelineTimeline]();
+                    }
+                } else if (timelineTimeline === 'all') {
+                    if (typeof dataCollectionSectionForm['vars']['navs_chunks'][schemeId]['all'] === 'boolean') {
+                        dataCollectionSectionForm['vars']['scheme']['id'] = schemeId;
+                        dataCollectionSectionForm['funcs']['getSchemeNavChunks'](timelineTimeline);
+                    } else {
+                        dataCollectionSectionForm['vars']['actions'][timelineTimeline]();
+                    }
+                }
+            });
+        });
+
+        //Activate Datatype (nav, diff, percent) buttons
+        if (dataCollectionSectionForm['vars']['compare'] == false &&
+            $("input[type='radio'][name='datatype']:checked").length > 0
+        ) {
+            var datatypeChecked = $("input[type='radio'][name='datatype']:checked");
+            var datatypeDatatype = $(datatypeChecked).data('value');
+            var datatypeLabels = $(datatypeChecked).parents('.btn-group').children('label');
+            $(datatypeLabels).each(function(index, datatypeLabel) {
+                $(datatypeLabel).removeClass('focus active disabled');
+                $(datatypeLabel).css('cursor', 'pointer');
+
+                if ($(datatypeLabel).children('input')[0].id === datatypeDatatype) {
+                    $(datatypeLabel).addClass('focus active disabled');
+                    $(datatypeLabel).css('cursor', 'default');
+                }
+            });
+
+            $("input[type='radio'][name='datatype']:checked").parents('.btn-group').children('label').children('input').off();
+            $("input[type='radio'][name='datatype']:checked").parents('.btn-group').children('label').children('input').click(function() {
+                datatypeChecked = $("input[type='radio'][name='datatype']:checked");
+                datatypeDatatype = $(datatypeChecked).data('value');
+                if (datatypeDatatype === 'nav') {
+                    dataCollectionSectionForm['vars']['dataTypeName'] = 'NAV';
+                } else if (datatypeDatatype === 'diff') {
+                    dataCollectionSectionForm['vars']['dataTypeName'] = 'DIFF';
+                } else if (datatypeDatatype === 'diff_percent') {
+                    dataCollectionSectionForm['vars']['dataTypeName'] = 'PERCENT';
+                }
+                datatypeLabels = $(datatypeChecked).parents('.btn-group').children('label');
+
+                $(datatypeLabels).each(function(index, datatypeLabel) {
+                    $(datatypeLabel).removeClass('focus active disabled');
+                    $(datatypeLabel).css('cursor', 'pointer');
+
+                    if ($(datatypeLabel).children('input')[0].id === datatypeDatatype) {
+                        $(datatypeLabel).addClass('focus active disabled');
+                        $(datatypeLabel).css('cursor', 'default');
+                    }
+                });
+
+                dataCollectionSectionForm['vars']['dataType'] = datatypeDatatype;
+
+                if (dataCollectionSectionForm['vars']['rangeActive'] === true) {
+                    dataCollectionSectionForm['vars']['actions']['range']();
+
+                    return;
+                }
+
+                $($("input[type='radio'][name='timeline']:checked").parents('.btn-group').children('label')).each(function(index, label) {
+                    if ($(label).hasClass('active')) {
+                        timelineTimeline = $(label).children('input').data('value');
+                    }
+                });
+
+                if (timelineTimeline === 'week') {
+                    dataCollectionSectionForm['vars']['actions'][timelineTimeline]();
+                } else if (timelineTimeline === 'month') {
+                    if (typeof dataCollectionSectionForm['vars']['navs_chunks']['month'] === 'boolean') {
+                        dataCollectionSectionForm['funcs']['getSchemeNavChunks'](timelineTimeline);
+                    } else {
+                        dataCollectionSectionForm['vars']['actions'][timelineTimeline]();
+                    }
+                } else if (timelineTimeline === 'threeMonth') {
+                    if (typeof dataCollectionSectionForm['vars']['navs_chunks']['threeMonth'] === 'boolean') {
+                        dataCollectionSectionForm['funcs']['getSchemeNavChunks'](timelineTimeline);
+                    } else {
+                        dataCollectionSectionForm['vars']['actions'][timelineTimeline]();
+                    }
+                } else if (timelineTimeline === 'sixMonth') {
+                    if (typeof dataCollectionSectionForm['vars']['navs_chunks']['sixMonth'] === 'boolean') {
+                        dataCollectionSectionForm['funcs']['getSchemeNavChunks'](timelineTimeline);
+                    } else {
+                        dataCollectionSectionForm['vars']['actions'][timelineTimeline]();
+                    }
+                } else if (timelineTimeline === 'year') {
+                    if (typeof dataCollectionSectionForm['vars']['navs_chunks']['year'] === 'boolean') {
+                        dataCollectionSectionForm['funcs']['getSchemeNavChunks'](timelineTimeline);
+                    } else {
+                        dataCollectionSectionForm['vars']['actions'][timelineTimeline]();
+                    }
+                } else if (timelineTimeline === 'threeYear') {
+                    if (typeof dataCollectionSectionForm['vars']['navs_chunks']['threeYear'] === 'boolean') {
+                        dataCollectionSectionForm['funcs']['getSchemeNavChunks'](timelineTimeline);
+                    } else {
+                        dataCollectionSectionForm['vars']['actions'][timelineTimeline]();
+                    }
+                } else if (timelineTimeline === 'fiveYear') {
+                    if (typeof dataCollectionSectionForm['vars']['navs_chunks']['fiveYear'] === 'boolean') {
+                        dataCollectionSectionForm['funcs']['getSchemeNavChunks'](timelineTimeline);
+                    } else {
+                        dataCollectionSectionForm['vars']['actions'][timelineTimeline]();
+                    }
+                } else if (timelineTimeline === 'tenYear') {
+                    if (typeof dataCollectionSectionForm['vars']['navs_chunks']['tenYear'] === 'boolean') {
+                        dataCollectionSectionForm['funcs']['getSchemeNavChunks'](timelineTimeline);
+                    } else {
+                        dataCollectionSectionForm['vars']['actions'][timelineTimeline]();
+                    }
+                } else if (timelineTimeline === 'fifteenYear') {
+                    if (typeof dataCollectionSectionForm['vars']['navs_chunks']['fifteenYear'] === 'boolean') {
+                        dataCollectionSectionForm['funcs']['getSchemeNavChunks'](timelineTimeline);
+                    } else {
+                        dataCollectionSectionForm['vars']['actions'][timelineTimeline]();
+                    }
+                } else if (timelineTimeline === 'twentyYear') {
+                    if (typeof dataCollectionSectionForm['vars']['navs_chunks']['twentyYear'] === 'boolean') {
+                        dataCollectionSectionForm['funcs']['getSchemeNavChunks'](timelineTimeline);
+                    } else {
+                        dataCollectionSectionForm['vars']['actions'][timelineTimeline]();
+                    }
+                } else if (timelineTimeline === 'twentyFiveYear') {
+                    if (typeof dataCollectionSectionForm['vars']['navs_chunks']['twentyFiveYear'] === 'boolean') {
+                        dataCollectionSectionForm['funcs']['getSchemeNavChunks'](timelineTimeline);
+                    } else {
+                        dataCollectionSectionForm['vars']['actions'][timelineTimeline]();
+                    }
+                } else if (timelineTimeline === 'thirtyYear') {
+                    if (typeof dataCollectionSectionForm['vars']['navs_chunks']['thirtyYear'] === 'boolean') {
+                        dataCollectionSectionForm['funcs']['getSchemeNavChunks'](timelineTimeline);
+                    } else {
+                        dataCollectionSectionForm['vars']['actions'][timelineTimeline]();
+                    }
+                } else if (timelineTimeline === 'all') {
+                    if (typeof dataCollectionSectionForm['vars']['navs_chunks']['all'] === 'boolean') {
+                        dataCollectionSectionForm['funcs']['getSchemeNavChunks'](timelineTimeline);
+                    } else {
+                        dataCollectionSectionForm['vars']['actions'][timelineTimeline]();
+                    }
+                } else if (timelineTimeline === 'range') {
+                    return;
+                }
+            });
+        }
+    }
+}
+
+dataCollectionSectionForm['funcs']['getSchemeNavChunks'] = function(chunksize, range = null, getTrendData = false) {
+    var postData = { };
+    postData[$('#security-token').attr('name')] = $('#security-token').val();
+    postData['scheme_id'] = dataCollectionSectionForm['vars']['scheme']['id'];
+    postData['chunk_size'] = chunksize;
+    if (chunksize === 'range' && range) {
+        range = range.split(' to ');
+        postData['range'] = range;
+    }
+
+    if (dataCollectionSectionForm['vars']['compare'] == true) {
+        postData['start_date'] = dataCollectionSectionForm['vars']['compareSchemesParams']['start_date'];
+        postData['end_date'] = dataCollectionSectionForm['vars']['compareSchemesParams']['end_date'];
+    }
+
+    if (dataCollectionSectionForm['vars']['custom']) {
+        postData['customChunks'] = true;
+    }
+
+    if (dataCollectionSectionForm['vars']['schemetimeline'] !== '') {
+        postData['timeline'] = dataCollectionSectionForm['vars']['schemetimeline'];
+    }
+
+    $.post('{{links.url("etf/schemes/getSchemeNavChunks")}}', postData, function(response) {
+        if (response.responseCode == 0 && response.responseData.chunks[chunksize]) {
+            if (getTrendData) {
+                dataCollectionSectionForm['vars']['trend'][chunksize] = response.responseData.trend;
+                dataCollectionSectionForm['funcs']['popluateTrendTable'](chunksize);
+            } else {
+                if (chunksize === 'all') {
+                    if (dataCollectionSectionForm['vars']['compare'] == true) {
+                        dataCollectionSectionForm['vars']['navs_chunks'][postData['scheme_id']][chunksize] = response.responseData.chunks[chunksize];
+                        dataCollectionSectionForm['vars']['trend'][postData['scheme_id']][chunksize] = response.responseData.trend;
+                    } else {
+                        dataCollectionSectionForm['vars']['navs_chunks'][postData['scheme_id']] = response.responseData.chunks[chunksize];
+                        dataCollectionSectionForm['vars']['trend'][postData['scheme_id']][chunksize] = response.responseData.trend;
+                    }
+                } else {
+                    dataCollectionSectionForm['vars']['navs_chunks'][postData['scheme_id']][chunksize] = response.responseData.chunks[chunksize];
+                    dataCollectionSectionForm['vars']['trend'][postData['scheme_id']][chunksize] = response.responseData.trend;
+                }
+
+                dataCollectionSectionForm['vars']['actions'][chunksize]();
+            }
+        } else {
+            paginatedPNotify('error', response.responseMessage);
+        }
+
+        if (response.tokenKey && response.token) {
+            $("#security-token").attr("name", response.tokenKey);
+            $("#security-token").val(response.token);
+        }
+    }, 'json');
+}
+
+dataCollectionSectionForm['funcs']['popluateTrendTable'] = function(trend) {
+    $('#trend-days').html('Trend days (' + dataCollectionSectionForm['vars']['trend'][dataCollectionSectionForm['vars']['scheme']['id']][trend]['totalDays'] + ')');
+
+    var trendHtml = '';
+
+    $.each(dataCollectionSectionForm['vars']['trend'], function(scheme, trends) {
+        if (dataCollectionSectionForm['vars']['trend'][scheme][trend]) {
+            trendHtml += '<tr id="trend-' + scheme + '">';
+
+            if (dataCollectionSectionForm['vars']['compare'] == true) {
+                trendHtml += '<td>' + dataCollectionSectionForm['vars']['compareSchemes'][scheme]['name'] + '</td>';
+            }
+
+            if (dataCollectionSectionForm['vars']['trend'][scheme][trend]['up']) {
+                trendHtml += '<td>' + dataCollectionSectionForm['vars']['trend'][scheme][trend]['up'] + '</td>';
+            } else {
+                trendHtml += '<td>-</td>';
+            }
+            if (dataCollectionSectionForm['vars']['trend'][scheme][trend]['down']) {
+                trendHtml += '<td>' + dataCollectionSectionForm['vars']['trend'][scheme][trend]['down'] + '</td>';
+            } else {
+                trendHtml += '<td>-</td>';
+            }
+            if (dataCollectionSectionForm['vars']['trend'][scheme][trend]['neutral']) {
+                trendHtml += '<td>' + dataCollectionSectionForm['vars']['trend'][scheme][trend]['neutral'] + '</td>';
+            } else {
+                trendHtml += '<td>-</td>';
+            }
+            if (dataCollectionSectionForm['vars']['trend'][scheme][trend]['minus5']) {
+                trendHtml += '<td>' + dataCollectionSectionForm['vars']['trend'][scheme][trend]['minus5'] + '</td>';
+            } else {
+                trendHtml += '<td>-</td>';
+            }
+            if (dataCollectionSectionForm['vars']['trend'][scheme][trend]['minus5tominus4']) {
+                trendHtml += '<td>' + dataCollectionSectionForm['vars']['trend'][scheme][trend]['minus5tominus4'] + '</td>';
+            } else {
+                trendHtml += '<td>-</td>';
+            }
+            if (dataCollectionSectionForm['vars']['trend'][scheme][trend]['minus4tominus3']) {
+                trendHtml += '<td>' + dataCollectionSectionForm['vars']['trend'][scheme][trend]['minus4tominus3'] + '</td>';
+            } else {
+                trendHtml += '<td>-</td>';
+            }
+            if (dataCollectionSectionForm['vars']['trend'][scheme][trend]['minus3tominus2']) {
+                trendHtml += '<td>' + dataCollectionSectionForm['vars']['trend'][scheme][trend]['minus3tominus2'] + '</td>';
+            } else {
+                trendHtml += '<td>-</td>';
+            }
+            if (dataCollectionSectionForm['vars']['trend'][scheme][trend]['minus2tominus1']) {
+                trendHtml += '<td>' + dataCollectionSectionForm['vars']['trend'][scheme][trend]['minus2tominus1'] + '</td>';
+            } else {
+                trendHtml += '<td>-</td>';
+            }
+            if (dataCollectionSectionForm['vars']['trend'][scheme][trend]['minus1to0']) {
+                trendHtml += '<td>' + dataCollectionSectionForm['vars']['trend'][scheme][trend]['minus1to0'] + '</td>';
+            } else {
+                trendHtml += '<td>-</td>';
+            }
+            if (dataCollectionSectionForm['vars']['trend'][scheme][trend][0]) {
+                trendHtml += '<td>' + dataCollectionSectionForm['vars']['trend'][scheme][trend][0] + '</td>';
+            } else {
+                trendHtml += '<td>-</td>';
+            }
+            if (dataCollectionSectionForm['vars']['trend'][scheme][trend]['0to1']) {
+                trendHtml += '<td>' + dataCollectionSectionForm['vars']['trend'][scheme][trend]['0to1'] + '</td>';
+            } else {
+                trendHtml += '<td>-</td>';
+            }
+            if (dataCollectionSectionForm['vars']['trend'][scheme][trend]['1to2']) {
+                trendHtml += '<td>' + dataCollectionSectionForm['vars']['trend'][scheme][trend]['1to2'] + '</td>';
+            } else {
+                trendHtml += '<td>-</td>';
+            }
+            if (dataCollectionSectionForm['vars']['trend'][scheme][trend]['2to3']) {
+                trendHtml += '<td>' + dataCollectionSectionForm['vars']['trend'][scheme][trend]['2to3'] + '</td>';
+            } else {
+                trendHtml += '<td>-</td>';
+            }
+            if (dataCollectionSectionForm['vars']['trend'][scheme][trend]['3to4']) {
+                trendHtml += '<td>' + dataCollectionSectionForm['vars']['trend'][scheme][trend]['3to4'] + '</td>';
+            } else {
+                trendHtml += '<td>-</td>';
+            }
+            if (dataCollectionSectionForm['vars']['trend'][scheme][trend]['4to5']) {
+                trendHtml += '<td>' + dataCollectionSectionForm['vars']['trend'][scheme][trend]['4to5'] + '</td>';
+            } else {
+                trendHtml += '<td>-</td>';
+            }
+            if (dataCollectionSectionForm['vars']['trend'][scheme][trend]['plus5']) {
+                trendHtml += '<td>' + dataCollectionSectionForm['vars']['trend'][scheme][trend]['plus5'] + '</td>';
+            } else {
+                trendHtml += '<td>-</td>';
+            }
+
+            trendHtml += '</tr>';
+        }
+    });
+
+    $('#{{componentId}}-{{sectionId}}-trends-table tbody').html(trendHtml);
+}
+
+dataCollectionSectionForm['funcs']['browse'] = function(url) {
+    $('#{{componentId}}-{{sectionId}}-navs-link').attr('href', url);
+
+    BazContentLoader.loadAjax($('#{{componentId}}-{{sectionId}}-navs-link'), {
+        ajaxBefore                      : function () {
+                                            Pace.restart();
+                                            $("#baz-content").empty();
+                                            $("#loader").attr('hidden', false);
+                                        },
+        ajaxFinished                    : function () {
+                                            BazCore.updateBreadcrumb();
+                                            $("#loader").attr('hidden', true);
+                                        },
+        ajaxError                       : function () {
+                                            $("#loader").attr('hidden', true);
+                                            BazCore.updateBreadcrumb();
+                                        }
+    });
+}
+
+setTimeout(function(){
+    $(document).ready(function() {
+        if (dataCollectionSectionForm['vars']['compare'] == false) {
+            dataCollectionSectionForm['funcs']['initNavChart']();
+        }
+    });
+}, 1000);
+</script>
+<!-- htmlmin:ignore -->
