@@ -1,0 +1,64 @@
+{% if widget['data']['settings']['watchlist']['schemes'] is defined and widget['data']['settings']['watchlist']['schemes']|length > 0 %}
+    {% set watchlistHtml =
+        '<div class="row">' ~
+        '    <div class="col">' ~
+        '        <table id="' ~ componentId ~ '-' ~ sectionId ~ '-watchlist-table" class="table table-sm table-hover responsive nowrap mb-0" width="100%" cellspacing="0">' ~
+        '            <thead>' ~
+        '                <tr>' ~
+        '                    <th class="text-uppercase">Symbol</th>' ~
+        '                    <th class="text-uppercase">Name</th>' ~
+        '                    <th class="text-uppercase">NAV</th>' ~
+        '                    <th class="text-uppercase">Day (CAGR)</th>' ~
+        '                </tr>' ~
+        '            </thead>' ~
+        '            <tbody>' %}
+        {% for schemeId, scheme in widget['data']['settings']['watchlist']['schemes'] %}
+            {% set cagrColor = 'primary' %}
+            {% if scheme['day_cagr'] > 0 %}
+                {% set cagrColor = 'success' %}
+            {% elseif scheme['day_cagr'] < 0 %}
+                {% set cagrColor = 'danger' %}
+            {% endif %}
+            {% set watchlistHtml = watchlistHtml ~ '<tr>' ~
+                '<td><a class="contentAjaxLink" href="' ~ links.url('/etf/schemes/q/id/' ~ schemeId) ~ '">' ~ scheme['symbol'] ~ '</a></td>' ~
+                '<td><a class="contentAjaxLink" href="' ~ links.url('/etf/schemes/q/id/' ~ schemeId) ~ '">' ~ scheme['name'] ~ '</a></td>' ~
+                '<td>' ~ scheme['latest_nav'] ~ '</td>' ~
+                '<td><span class="text-' ~ cagrColor ~ '">' ~ scheme['day_cagr'] ~ '</span></td>' ~
+                '</tr>'
+            %}
+        {% endfor %}
+    {% set watchlistHtml = watchlistHtml ~
+        '            </tbody>' ~
+        '        </table>' ~
+        '    </div>' ~
+        '</div>'
+    %}
+    <div class="row" id="watchlist-div">
+        <div class="col">
+            {{adminltetags.useTag('fields',
+                [
+                    'component'                      : component,
+                    'componentName'                  : componentName,
+                    'componentId'                    : componentId,
+                    'sectionId'                      : sectionId,
+                    'fieldId'                        : 'watchlist',
+                    'fieldLabel'                     : 'ETF Watchlist',
+                    'fieldType'                      : 'html',
+                    'fieldAdditionalClass'           : 'mb-0 watchlist',
+                    'fieldHelp'                      : false,
+                    'fieldHelpTooltipContent'        : 'watchlist for the user',
+                    'fieldRequired'                  : false,
+                    'fieldBazScan'                   : true,
+                    'fieldBazPostOnUpdate'           : true,
+                    'fieldHtmlContent'               : watchlistHtml
+                ]
+            )}}
+        </div>
+    </div>
+{% else %}
+    <div class="row text-center m-2" id="{{componentId}}-{{sectionId}}-watchlist-widget-error" z-index>
+        <div class="col">
+            <h6><i class="fa fa-fw fa-info-circle text-danger"></i> Please edit widget and add schemes via settings or via schemes.</h6>
+        </div>
+    </div>
+{% endif %}
