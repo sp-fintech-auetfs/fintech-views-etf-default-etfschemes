@@ -27,6 +27,11 @@
         ]
     )}}
 {% else %}
+    {% if isWatchlist is defined and isWatchlist == true %}
+        {% set title = 'Schemes : Watchlist' %}
+    {% else %}
+        {% set title = 'Schemes' %}
+    {% endif %}
     {{adminltetags.useTag('content',
         [
             'component'                     : component,
@@ -40,7 +45,7 @@
             'cardShowTools'                 : ['maximize'],
             'cardType'                      : 'primary',
             'cardIcon'                      : 'circle-dot',
-            'cardTitle'                     : 'Schemes',
+            'cardTitle'                     : title,
             'cardAdditionalClass'           : 'rounded-0',
             'cardBodyInclude'               : 'schemes/explorer'
         ]
