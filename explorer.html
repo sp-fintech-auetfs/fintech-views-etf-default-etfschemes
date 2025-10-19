@@ -1,5 +1,5 @@
 
-{% if isWatchlist is defined and isWatchlist == true %}
+{% if isWatchlist is defined and isWatchlist == true and access.auth.check() %}
     <div class="row">
         <div class="col">
             {{adminltetags.useTag('content',
@@ -58,6 +58,7 @@
     </div>
 {% else %}
     <div class="row">
+        {% if access.auth.check() %}
         <div class="col">
             {{adminltetags.useTag('fields',
                 [
@@ -80,6 +81,7 @@
                 ]
             )}}
         </div>
+        {% endif %}
         <div class="col">
             {{adminltetags.useTag('fields',
                 [
@@ -131,9 +133,60 @@
     </div>
     <div class="row">
         <div class="col">
+            {% set filters = false %}
             {% set compareUrl = links.url('etf/schemes/q/compare/true') %}
-            {% if timeline %}
-                {% set compareUrl = links.url('etf/schemes/q/compare/true/timeline/') ~ timeline %}
+            {% set dtPrimaryButtons =
+                {
+                    'componentId'           : componentId,
+                    'sectionId'             : 'listing',
+                    'buttonType'            : 'button',
+                    'buttons'               :
+                        {
+                            'compare' : {
+                                'title'                   : 'Compare',
+                                'size'                    : 'sm',
+                                'type'                    : 'primary',
+                                'icon'                    : 'equals',
+                                'position'                : 'right',
+                                'buttonAdditionalClass'   : 'contentAjaxLink',
+                                'url'                     : compareUrl
+                            }
+                        }
+                }
+            %}
+            {% if access.auth.check() %}
+                {% set filters = true %}
+                {% if timeline %}
+                    {% set compareUrl = links.url('etf/schemes/q/compare/true/timeline/') ~ timeline %}
+                {% endif %}
+                {% set dtPrimaryButtons =
+                    {
+                        'componentId'           : componentId,
+                        'sectionId'             : 'listing',
+                        'buttonType'            : 'button',
+                        'buttons'               :
+                            {
+                                'compare' : {
+                                    'title'                   : 'Compare',
+                                    'size'                    : 'sm',
+                                    'type'                    : 'primary',
+                                    'icon'                    : 'equals',
+                                    'position'                : 'right',
+                                    'buttonAdditionalClass'   : 'contentAjaxLink',
+                                    'url'                     : compareUrl
+                                },
+                                'my_watchlists' : {
+                                    'title'                   : 'My Watchlist',
+                                    'size'                    : 'sm',
+                                    'type'                    : 'primary',
+                                    'icon'                    : 'eye',
+                                    'position'                : 'right',
+                                    'buttonAdditionalClass'   : 'contentAjaxLink',
+                                    'url'                     : links.url('etf/schemes/q/watchlists/true')
+                                }
+                            }
+                    }
+                %}
             {% endif %}
             {{adminltetags.useTag('content',
                 [
@@ -150,7 +203,7 @@
                     'cardAdditionalClass'       : 'rounded-0',
                     'cardShowTools'             : ['maximize'],
                     'dtFixedHeader'             : true,
-                    'dtFilter'                  : true,
+                    'dtFilter'                  : filters,
                     'dtFilterShowQuickFilter'   : true,
                     'dtQuickFilterColumns'      : ['name', 'symbol'],
                     'dtFilterButtons'           : ['edit', 'delete', 'add', 'clone', 'reset'],
@@ -167,33 +220,7 @@
                     'dtNoOfColumnsToShow'       : 12,
                     'dtTableCompact'            : true,
                     'dtZeroRecords'             : 'No schemes data available.',
-                    'dtPrimaryButtons'          :
-                        {
-                            'componentId'           : componentId,
-                            'sectionId'             : 'listing',
-                            'buttonType'            : 'button',
-                            'buttons'               :
-                                {
-                                    'compare' : {
-                                        'title'                   : 'Compare',
-                                        'size'                    : 'sm',
-                                        'type'                    : 'primary',
-                                        'icon'                    : 'equals',
-                                        'position'                : 'right',
-                                        'buttonAdditionalClass'   : 'contentAjaxLink',
-                                        'url'                     : compareUrl
-                                    },
-                                    'my_watchlists' : {
-                                        'title'                   : 'My Watchlist',
-                                        'size'                    : 'sm',
-                                        'type'                    : 'primary',
-                                        'icon'                    : 'eye',
-                                        'position'                : 'right',
-                                        'buttonAdditionalClass'   : 'contentAjaxLink',
-                                        'url'                     : links.url('etf/schemes/q/watchlists/true')
-                                    }
-                                }
-                        }
+                    'dtPrimaryButtons'          : dtPrimaryButtons
                 ]
             )}}
         </div>
