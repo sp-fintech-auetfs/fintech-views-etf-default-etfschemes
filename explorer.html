@@ -59,28 +59,28 @@
 {% else %}
     <div class="row">
         {% if access.auth.check() %}
-        <div class="col">
-            {{adminltetags.useTag('fields',
-                [
-                    'component'                                 : component,
-                    'componentName'                             : componentName,
-                    'componentId'                               : componentId,
-                    'sectionId'                                 : sectionId,
-                    'fieldId'                                   : 'scheme_timeline',
-                    'fieldLabel'                                : 'Timeline Date',
-                    'fieldType'                                 : 'flatpickr',
-                    'fieldHelp'                                 : true,
-                    'fieldHelpTooltipContent'                   : 'Select date to go to the timeline date.',
-                    'fieldRequired'                             : false,
-                    'fieldBazScan'                              : true,
-                    'fieldBazPostOnUpdate'                      : false,
-                    'fieldFlatpickrPreAddonButtonId'            : 'today',
-                    'fieldFlatpickrPreAddonButtonClass'         : 'secondary',
-                    'fieldFlatpickrPreAddonButtonValue'         : '<i class="fas fa-fw fa-calendar"></i>',
-                    'fieldFlatpickrPreAddonButtonTooltipTitle'  : 'Today'
-                ]
-            )}}
-        </div>
+            <div class="col">
+                {{adminltetags.useTag('fields',
+                    [
+                        'component'                                 : component,
+                        'componentName'                             : componentName,
+                        'componentId'                               : componentId,
+                        'sectionId'                                 : sectionId,
+                        'fieldId'                                   : 'scheme_timeline',
+                        'fieldLabel'                                : 'Timeline Date',
+                        'fieldType'                                 : 'flatpickr',
+                        'fieldHelp'                                 : true,
+                        'fieldHelpTooltipContent'                   : 'Select date to go to the timeline date.',
+                        'fieldRequired'                             : false,
+                        'fieldBazScan'                              : true,
+                        'fieldBazPostOnUpdate'                      : false,
+                        'fieldFlatpickrPreAddonButtonId'            : 'today',
+                        'fieldFlatpickrPreAddonButtonClass'         : 'secondary',
+                        'fieldFlatpickrPreAddonButtonValue'         : '<i class="fas fa-fw fa-calendar"></i>',
+                        'fieldFlatpickrPreAddonButtonTooltipTitle'  : 'Today'
+                    ]
+                )}}
+            </div>
         {% endif %}
         <div class="col">
             {{adminltetags.useTag('fields',
