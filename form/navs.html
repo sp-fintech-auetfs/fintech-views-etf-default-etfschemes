@@ -1,4 +1,4 @@
-<!-- htmlhint tag-pair:false -->
+<!-- htmlhint tag-pair:false --><!-- htmlmin:ignore -->
 {% if compare is defined and compare == true %}
     <div class="row">
         <div class="col">
@@ -306,6 +306,37 @@
                 ]
             )}}
         </div>
+        {% set datatypeButtons =
+            [
+                'nav' : [
+                    'title'                   : 'NAVS',
+                    'type'                    : 'primary',
+                    'value'                   : 'nav'
+                ],
+                'diff' : [
+                    'title'                   : 'DIFF',
+                    'type'                    : 'primary',
+                    'value'                   : 'diff'
+                ],
+                'diff_percent' : [
+                    'title'                   : 'PERCENT',
+                    'type'                    : 'primary',
+                    'value'                   : 'diff_percent'
+                ]
+            ]
+        %}
+        {% if scheme['dividend_frequency'] is defined and scheme['dividend_frequency'] != '' %}
+            {% set datatypeButtons = array_merge(datatypeButtons,
+                [
+                    'reinvest_diff_percent' : [
+                        'title'                   : 'PERCENT (REINVEST)',
+                        'type'                    : 'primary',
+                        'value'                   : 'reinvest_diff_percent'
+                    ]
+                ]
+                )
+            %}
+        {% endif %}
         <div id="datatype-buttons" class="col text-center" hidden>
             {{adminltetags.useTag('buttons',
                 [
@@ -317,27 +348,11 @@
                     'buttonId'                          : 'datatype',
                     'groupButtonType'                   : 'radio',
                     'groupRadioButtonChecked'           : 'nav',
-                    'buttons'                           :
-                    [
-                        'nav' : [
-                            'title'                   : 'NAVS',
-                            'type'                    : 'primary',
-                            'value'                   : 'nav'
-                        ],
-                        'diff' : [
-                            'title'                   : 'DIFF',
-                            'type'                    : 'primary',
-                            'value'                   : 'diff'
-                        ],
-                        'diff_percent' : [
-                            'title'                   : 'PERCENT',
-                            'type'                    : 'primary',
-                            'value'                   : 'diff_percent'
-                        ]
-                    ]
+                    'buttons'                           : datatypeButtons
                 ]
             )}}
         </div>
+
         {% if custom is not defined %}
             <div class="col">
                 {{adminltetags.useTag('buttons',
@@ -691,6 +706,9 @@ dataCollectionSectionForm['funcs']['initNavChart'] = function(compare = false) {
                                 } else if (dataCollectionSectionForm['vars']['dataType'] === 'diff_percent') {
                                     dataCollectionSectionForm['vars'][time + 'NavData'][dataCollectionSectionForm['vars']['dataType']] =
                                         chunks[time][date]['diff_percent_since_inception'];
+                                } else if (dataCollectionSectionForm['vars']['dataType'] === 'reinvest_diff_percent') {
+                                    dataCollectionSectionForm['vars'][time + 'NavData'][dataCollectionSectionForm['vars']['dataType']] =
+                                        chunks[time][date]['reinvest_diff_percent'];
                                 } else {
                                     dataCollectionSectionForm['vars'][time + 'NavData'][dataCollectionSectionForm['vars']['dataType']] =
                                         chunks[time][date][dataCollectionSectionForm['vars']['dataType']];
@@ -889,6 +907,8 @@ dataCollectionSectionForm['funcs']['initNavChart'] = function(compare = false) {
                     dataCollectionSectionForm['vars']['dataTypeName'] = 'DIFF';
                 } else if (datatypeDatatype === 'diff_percent') {
                     dataCollectionSectionForm['vars']['dataTypeName'] = 'PERCENT';
+                } else if (datatypeDatatype === 'reinvest_diff_percent') {
+                    dataCollectionSectionForm['vars']['dataTypeName'] = 'PERCENT (REINVEST)';
                 }
                 datatypeLabels = $(datatypeChecked).parents('.btn-group').children('label');
 
@@ -1182,3 +1202,4 @@ setTimeout(function(){
     });
 }, 1000);
 </script>
+<!-- htmlmin:ignore -->
