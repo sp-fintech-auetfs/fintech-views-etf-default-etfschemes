@@ -87,10 +87,11 @@
     '                <tr>'
 %}
 {% set statisticsHeaders = array_merge(statisticsHeaders,
-    ['average',
+    ['minimum',
+    'mean',
     'median',
+    'mode',
     'maximum',
-    'minimum',
     'negative',
     '0-8%',
     '8-10%',
@@ -647,8 +648,13 @@ dataCollectionSectionForm['funcs']['popluateStatisticsTable'] = function() {
         }
 
         if (rrData['rrStatistics']) {
-            if (rrData['rrStatistics']['average']) {
-                statsHtml += '<td>' + rrData['rrStatistics']['average'] + '</td>';
+            if (rrData['rrStatistics']['min']) {
+                statsHtml += '<td>' + rrData['rrStatistics']['min'] + '</td>';
+            } else {
+                statsHtml += '<td>0</td>';
+            }
+            if (rrData['rrStatistics']['mean']) {
+                statsHtml += '<td>' + rrData['rrStatistics']['mean'] + '</td>';
             } else {
                 statsHtml += '<td>0</td>';
             }
@@ -657,13 +663,13 @@ dataCollectionSectionForm['funcs']['popluateStatisticsTable'] = function() {
             } else {
                 statsHtml += '<td>0</td>';
             }
-            if (rrData['rrStatistics']['max']) {
-                statsHtml += '<td>' + rrData['rrStatistics']['max'] + '</td>';
+            if (rrData['rrStatistics']['mode']) {
+                statsHtml += '<td>' + rrData['rrStatistics']['mode'] + '</td>';
             } else {
                 statsHtml += '<td>0</td>';
             }
-            if (rrData['rrStatistics']['min']) {
-                statsHtml += '<td>' + rrData['rrStatistics']['min'] + '</td>';
+            if (rrData['rrStatistics']['max']) {
+                statsHtml += '<td>' + rrData['rrStatistics']['max'] + '</td>';
             } else {
                 statsHtml += '<td>0</td>';
             }
