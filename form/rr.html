@@ -1,4 +1,4 @@
-<!-- htmlmin:ignore -->
+
 {% if compare is defined and compare == true %}
     {% set rollingPeriods = [] %}
 {% else %}
@@ -445,7 +445,13 @@ if (dataCollectionSectionForm['vars']['compare'] == false) {//Need this conditio
 
                     dataCollectionSection['{{componentId}}-{{sectionId}}-start_date']['flatpickr'].setDate(dataCollectionSectionForm['vars']['scheme']['start_date']);
                     dataCollectionSectionForm['vars']['rr_start_date'] = dataCollectionSectionForm['vars']['scheme']['start_date'];
-                }
+                },
+                disable: [
+                    function(date) {
+                        // return true to disable
+                        return (date.getDay() === 0 || date.getDay() === 6);
+                    }
+                ]
             },
             '{{componentId}}-{{sectionId}}-form'                                : {
                 ignore      : ':submit, :reset, :image, :hidden, .ignore, .cr-slider',
@@ -788,4 +794,3 @@ dataCollectionSectionForm['funcs']['generateCustomNav'] = function() {
     }, 'json');
 }
 </script>
-<!-- htmlmin:ignore -->

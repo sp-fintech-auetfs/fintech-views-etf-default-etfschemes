@@ -563,7 +563,7 @@ dataCollectionSection =
                             }
                             schemesData.push({
                                 "id"    : response.responseData.schemes[scheme]["id"],
-                                "text"  : response.responseData.schemes[scheme]["name"]
+                                "text"  : response.responseData.schemes[scheme]["name"] + ' (' + response.responseData.schemes[scheme]["symbol"] + ')'
                             });
                         }
 
@@ -698,7 +698,13 @@ dataCollectionSection =
                         });
                     }
                 }
-            }
+            },
+            disable: [
+                function(date) {
+                    // return true to disable
+                    return (date.getDay() === 0 || date.getDay() === 6);
+                }
+            ]
         },
         '{{componentId}}-{{sectionId}}-form'                        : {
             ignore      : ':submit, :reset, :image, :hidden, .ignore, .cr-slider',
