@@ -1,4 +1,4 @@
-
+<!-- htmlmin:ignore -->
 {% if isWatchlist is defined and isWatchlist == true and access.auth.check() %}
     <div class="row">
         <div class="col">
@@ -398,7 +398,7 @@ dataCollectionSectionForm['funcs']['query'] = function() {
                     data + '&';
             } else {
                 query +=
-                    'AND' + '|' +
+                    'OR' + '|' +
                     'amc_id' + '|' +
                     'equals' + '|' +
                     data
@@ -406,12 +406,21 @@ dataCollectionSectionForm['funcs']['query'] = function() {
             }
         });
         $.each($('#{{componentId}}-{{sectionId}}-category_ids').val(), function(index, data) {
-            query +=
-                'AND' + '|' +
-                'category_id' + '|' +
-                'equals' + '|' +
-                data
-                + '&';
+            if (index === 0) {
+                query +=
+                    'AND' + '|' +
+                    'category_id' + '|' +
+                    'equals' + '|' +
+                    data
+                    + '&';
+            } else {
+                query +=
+                    'OR' + '|' +
+                    'category_id' + '|' +
+                    'equals' + '|' +
+                    data
+                    + '&';
+            }
         });
     } else if (amc && !category) {
         $.each($('#{{componentId}}-{{sectionId}}-amc_ids').val(), function(index, data) {
@@ -423,7 +432,7 @@ dataCollectionSectionForm['funcs']['query'] = function() {
                     data + '&';
             } else {
                 query +=
-                    'AND' + '|' +
+                    'OR' + '|' +
                     'amc_id' + '|' +
                     'equals' + '|' +
                     data
@@ -440,7 +449,7 @@ dataCollectionSectionForm['funcs']['query'] = function() {
                     data + '&';
             } else {
                 query +=
-                    'AND' + '|' +
+                    'OR' + '|' +
                     'category_id' + '|' +
                     'equals' + '|' +
                     data
@@ -522,3 +531,4 @@ dataCollectionSectionForm['funcs']['browse'] = function(url) {
     });
 }
 </script>
+<!-- htmlmin:ignore -->
